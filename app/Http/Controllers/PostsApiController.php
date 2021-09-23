@@ -15,10 +15,10 @@ class PostsApiController extends Controller
     public function store()
     {
         request()->validate([
-            'title' => 'required',
-            'content' => 'required',
+            'title'=>'required',
+            'content'=>'required',
         ]);
-
+        
         return Post::create([
             'title' => request('title'),
             'content' => request('content'),

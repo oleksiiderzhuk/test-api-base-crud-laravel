@@ -22,35 +22,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/posts', [PostsApiController::class, 'index']);
 
-Route::post('/posts', function(){
-    request()->validate([
-        'title'=>'required',
-        'content'=>'required',
-    ]);
-    
-    return Post::create([
-        'title' => request('title'),
-        'content' => request('content'),
-    ]);
-});
+Route::post('/posts', [PostsApiController::class, 'store']);
 
-Route::put('/posts/{post}', function(Post $post){
-      
-    $success = $post->update([
-        'title' => request('title'),
-        'content' => request('content'),
- ]);
+Route::put('/posts/{post}', [PostsApiController::class, 'update']);
 
-return[
-    'success' => $success
-];
-
-});
-
-Route::delete('/posts/{post}', function(Post $post){
-    $success = $post->delete();
-    return [
-        'success' => $success
-    ];
-});
-
+Route::delete('/posts/{post}', [PostsApiController::class, 'destroy']);
