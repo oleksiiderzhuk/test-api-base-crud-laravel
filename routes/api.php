@@ -20,17 +20,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->$user();
 });
 
-Route::get('/posts', function(){
-    return Post::all();
-});
+Route::get('/posts', [PostsApiController::class, 'index']);
 
 Route::post('/posts', function(){
     request()->validate([
         'title'=>'required',
         'content'=>'required',
     ]);
-    
-    
     
     return Post::create([
         'title' => request('title'),
@@ -39,14 +35,10 @@ Route::post('/posts', function(){
 });
 
 Route::put('/posts/{post}', function(Post $post){
-    // request()->validate([
-    //     'title' => 'required',
-//        'content' => 'required',
-    // ]);
-    
-$success = $post->update([
-    'title' => request('title'),
-    'content' => request('content'),
+      
+    $success = $post->update([
+        'title' => request('title'),
+        'content' => request('content'),
  ]);
 
 return[
